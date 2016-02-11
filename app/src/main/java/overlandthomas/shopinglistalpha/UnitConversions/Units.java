@@ -4,7 +4,7 @@ package overlandthomas.shopinglistalpha.UnitConversions;
  * Created by overtho17 on 2/5/2016.
  */
 public class Units {
-    private static final String[] units={"Cup","MiliLiter","tableSpoon","TeaSpoon","Gram","Pound","ounce"};
+    private static final String[] units={"Cup","MiliLiter","tableSpoon","TeaSpoon","Gram","Pound","ounce","Quart"};
     private static final String[] familys={"volume","weight"};
     private static final String[] volumeUnits={"Cup","Quart","TeaSpoon","MiliLiter","tableSpoon","ounce"};
     private static final double[] volumeCon ={1,4,1/48,1/237,1/16,1/8};
@@ -36,7 +36,7 @@ public class Units {
     }
     public static Unit convert(String target, Unit con){
         String fam = getFamily(target);
-        if(fam!=con.getFamily()){
+        if(!fam.equalsIgnoreCase(con.getFamily())){
             return null;
         }
         con=convertToBase(con);
