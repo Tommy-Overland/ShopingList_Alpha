@@ -8,7 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+
+import java.util.Scanner;
+
+import overlandthomas.shopinglistalpha.UnitConversions.Unit;
+import overlandthomas.shopinglistalpha.UnitConversions.Units;
 
 
 /**
@@ -31,6 +37,7 @@ public class AddFood extends Fragment {
     public Spinner units;
     public Spinner whole;
     public Spinner fraction;
+    public EditText food;
     private OnFragmentInteractionListener mListener;
 
     public AddFood() {
@@ -65,6 +72,7 @@ public class AddFood extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,21 +81,41 @@ public class AddFood extends Fragment {
         units = (Spinner) v.findViewById(R.id.unit);
         whole = (Spinner) v.findViewById(R.id.whole);
         fraction = (Spinner) v.findViewById(R.id.fraction);
-        ArrayAdapter<CharSequence> u= ArrayAdapter.createFromResource(this.getActivity(),R.array.units,android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> w= ArrayAdapter.createFromResource(this.getActivity(),R.array.whole,android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> f= ArrayAdapter.createFromResource(this.getActivity(),R.array.fraction,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> u= ArrayAdapter.createFromResource(this.getActivity(), R.array.units, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> w= ArrayAdapter.createFromResource(this.getActivity(), R.array.whole, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> f= ArrayAdapter.createFromResource(this.getActivity(), R.array.fraction, android.R.layout.simple_spinner_item);
         u.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         w.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         f.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         units.setAdapter(u);
         whole.setAdapter(w);
         fraction.setAdapter(f);
+        food = (EditText) v.findViewById(R.id.nameOfFood);
         return v;
     }
     public void addItem(View v){
+        String n = food.toString();
         String unit = units.getSelectedItem().toString();
-        String num = units.getSelectedItem().toString();
-        String frac = units.getSelectedItem().toString();
+        String num = whole.getSelectedItem().toString();
+        String frac = fraction.getSelectedItem().toString();
+        if(n==null||unit==null||num==null||frac==null){
+            return;
+        }
+        Double val;
+        Scanner s = new Scanner(num);
+        val=s.nextDouble();
+        s = new Scanner(frac);
+        s.useDelimiter("/");
+        if(!frac.equals("0")){
+            int t = s.nextInt();
+            double d = t/s.nextInt();
+            val+=d;
+        }
+        Unit u = new Unit(unit,val, Units.getFamily(unit));
+        mListener.add(u,n);
+    }
+    public void terminate(View view){
+        mListener.end();
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -126,6 +154,8 @@ public class AddFood extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+        void end();
+        void add(Unit u, String n);
     }
 
 }

@@ -1,5 +1,6 @@
 package overlandthomas.shopinglistalpha;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,7 +15,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+import overlandthomas.shopinglistalpha.UnitConversions.Unit;
+
+public class MainActivity extends AppCompatActivity implements AddFood.OnFragmentInteractionListener{
 public ArrayList<FoodItem> foods = new ArrayList<>();
     public LinearLayout mainLayout = (LinearLayout) findViewById(R.id.layout);
     public EditText input = (EditText) findViewById(R.id.item);
@@ -57,13 +60,24 @@ public ArrayList<FoodItem> foods = new ArrayList<>();
 
         return super.onOptionsItemSelected(item);
     }
+    /*
     public void newItem(View view){
         String s = input.toString();
         FoodItem food = new FoodItem(s,this,foods);
         mainLayout.addView(food.layout);
         input.setText("");
     }
+    */
     public void remove(View v){
         mainLayout.removeView(v);
+    }
+    public void end(){
+
+    }
+    public void add(Unit u, String n){
+
+    }
+    public void onFragmentInteraction(Uri uri){
+
     }
 }

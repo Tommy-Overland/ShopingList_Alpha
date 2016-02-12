@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
+import overlandthomas.shopinglistalpha.UnitConversions.*;
 /**
  * Created by overtho17 on 2/4/2016.
  */
@@ -15,13 +16,16 @@ public class FoodItem {
     public LinearLayout layout;
     public Button compleate;
     public String food;
-    public FoodItem(String in,Context t,ArrayList<FoodItem> s){
+    public Unit quantity;
+    public FoodItem(String in,Context t,ArrayList<FoodItem> s,Unit q){
+        quantity=q;
         store=s;
         s.add(this);
         food=in;
         layout=new LinearLayout(t);
         item=new TextView(t);
-        item.append(in);
+        String label = in+q.toString();
+        item.append(label);
         layout.addView(item);
         compleate=new Button(t);
         compleate.append("remove item");

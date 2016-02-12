@@ -9,6 +9,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content">
        <EditText
+       android:id="@+id/nameOfFood"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:hint="foodItem"/>
@@ -45,11 +46,13 @@
            <Button
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="cancel"/>
+               android:text="cancel"
+               android:onClick="terminate"/>
            <Button
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Create"/>
+               android:text="Create"
+               android:onClick="addItem"/>
        </LinearLayout>
    </LinearLayout>
 
