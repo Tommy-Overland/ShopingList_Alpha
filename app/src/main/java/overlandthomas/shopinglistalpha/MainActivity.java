@@ -75,6 +75,8 @@ public ArrayList<FoodItem> foods = new ArrayList<>();
 
     }
     public void add(Unit u, String n){
+        FoodItem food = new FoodItem(n,this,foods,u);
+        mainLayout.addView(food.layout);
 
     }
     public void onFragmentInteraction(Uri uri){

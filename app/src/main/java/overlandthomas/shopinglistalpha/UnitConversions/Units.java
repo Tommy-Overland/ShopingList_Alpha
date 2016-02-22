@@ -46,7 +46,7 @@ public class Units {
         }else{
             conv=1;
         }
-            return new Unit(target,con.getQuantity()*conv,con.getFamily());
+            return new Unit(target,con.getQuantity()/conv,con.getFamily());
 
     }
     public static Unit convertToBase(Unit con){
@@ -64,5 +64,26 @@ public class Units {
             }
         }
         return -1;
+    }
+    public static Unit add(Unit u1, Unit u2){
+        Unit ub1 = convertToBase(u1);
+        Unit ub2 = convertToBase(u2);
+        Unit u3 = new Unit(ub1.getName(),ub1.getQuantity()+ub2.getQuantity(),ub1.getFamily());
+        return u3;
+    }
+    public static Unit toGreatestUnit(Unit u){
+        if(!u.getName().equalsIgnoreCase("Cup")){
+            u=convertToBase(u);
+        }
+        double val = u.getQuantity();
+        String unit = u.getName();
+        for(int i=0; i<volumeUnits.length;i++){
+            double v = u.getQuantity()/volumeCon[i];
+            if(v>0&&v<val){
+                val=v;
+                unit = volumeUnits[i];
+            }
+        }
+        return convert(unit,u);
     }
 }

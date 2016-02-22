@@ -73,6 +73,12 @@ public class MainList extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+    public void get(View view){
+        mListener.getFood();
+    }
+    public void addFood(FoodItem food){
+
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -104,5 +110,6 @@ public class MainList extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+        void getFood();
     }
 }
