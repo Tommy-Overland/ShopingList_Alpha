@@ -4,12 +4,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,17 +19,23 @@ import java.util.ArrayList;
 
 import overlandthomas.shopinglistalpha.UnitConversions.Unit;
 
-public class MainActivity extends AppCompatActivity implements AddFood.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements AddFood.OnFragmentInteractionListener, MainList.OnFragmentInteractionListener{
 public ArrayList<FoodItem> foods = new ArrayList<>();
-    public LinearLayout mainLayout = (LinearLayout) findViewById(R.id.layout);
-    public EditText input = (EditText) findViewById(R.id.item);
+    public MainList main;
+    public AddFood foodFrag;
+   // public LinearLayout mainLayout = (LinearLayout) findViewById(R.id.layout);
+    //public EditText input = (EditText) findViewById(R.id.item);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.content_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if(findViewById(R.id.layout)!=null){
 
+        }
+         main = new MainList();
+        getSupportFragmentManager().beginTransaction().add(R.id.layout,main).commit();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,17 +77,38 @@ public ArrayList<FoodItem> foods = new ArrayList<>();
     }
     */
     public void remove(View v){
-        mainLayout.removeView(v);
+        //mainLayout.removeView(v);
     }
     public void end(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.layout, main);
+        transaction.addToBackStack(null);
+
+// Commit the transaction
+        transaction.commit();
 
     }
     public void add(Unit u, String n){
         FoodItem food = new FoodItem(n,this,foods,u);
-        mainLayout.addView(food.layout);
-
+        main.addFood(food);
+        end();
     }
     public void onFragmentInteraction(Uri uri){
 
+    }
+    public void getFood(){
+        foodFrag=new AddFood();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.layout, foodFrag);
+        transaction.addToBackStack(null);
+
+// Commit the transaction
+        transaction.commit();
     }
 }
