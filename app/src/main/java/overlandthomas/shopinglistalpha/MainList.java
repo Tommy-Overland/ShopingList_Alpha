@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,12 +19,13 @@ import android.view.ViewGroup;
  * Use the {@link MainList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainList extends Fragment {
+public class MainList extends Fragment implements Rmove{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public ArrayList<FoodItem> foods = new ArrayList<>();
+    public LinearLayout mainLayout ;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -48,6 +51,7 @@ public class MainList extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -64,7 +68,10 @@ public class MainList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_list, container, false);
+
+        View v=inflater.inflate(R.layout.fragment_main_list, container, false);
+        mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -77,8 +84,19 @@ public class MainList extends Fragment {
         mListener.getFood();
     }
     public void addFood(FoodItem food){
-
+        mainLayout.addView(food.layout);
+        for(int i=0; i<foods.size()-1;i++){
+            if(foods.get(i).food.equalsIgnoreCase(food.food)){
+                foods.get(i).add(food.quantity);
+                food.remove();
+                return;
+            }
+        }
     }
+    public void remove(FoodItem food){
+        mainLayout.removeView(food.layout);
+    }
+
 
     @Override
     public void onAttach(Context context) {

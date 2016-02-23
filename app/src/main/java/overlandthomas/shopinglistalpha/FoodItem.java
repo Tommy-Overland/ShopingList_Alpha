@@ -38,12 +38,18 @@ public class FoodItem {
         });
 
         }
-    private void remove(){
+    public void remove(){
         store.remove(this);
-        if(layout.getContext() instanceof MainActivity){
-            ((MainActivity) layout.getContext()).remove(layout);
+        if(layout.getContext() instanceof Rmove){
+            ((Rmove) layout.getContext()).remove(this);
         }
 
+    }
+    public void add (Unit u){
+        quantity = Units.add(this.quantity,u);
+        quantity = Units.toGreatestUnit(quantity);
+        String label = food +" "+ quantity.toString();
+        item.setText(label);
     }
         @Override
     public boolean equals(Object o){

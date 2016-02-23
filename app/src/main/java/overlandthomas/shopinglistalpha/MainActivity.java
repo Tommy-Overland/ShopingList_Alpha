@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import overlandthomas.shopinglistalpha.UnitConversions.Unit;
 
 public class MainActivity extends AppCompatActivity implements AddFood.OnFragmentInteractionListener, MainList.OnFragmentInteractionListener{
-public ArrayList<FoodItem> foods = new ArrayList<>();
     public MainList main;
     public AddFood foodFrag;
    // public LinearLayout mainLayout = (LinearLayout) findViewById(R.id.layout);
@@ -92,7 +91,7 @@ public ArrayList<FoodItem> foods = new ArrayList<>();
 
     }
     public void add(Unit u, String n){
-        FoodItem food = new FoodItem(n,this,foods,u);
+        FoodItem food = new FoodItem(n,this,main.foods,u);
         main.addFood(food);
         end();
     }
