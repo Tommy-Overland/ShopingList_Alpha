@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +27,7 @@ public class MainList extends Fragment implements Rmove{
     private static final String ARG_PARAM2 = "param2";
     public ArrayList<FoodItem> foods = new ArrayList<>();
     public LinearLayout mainLayout ;
+    public File listFile;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -70,6 +72,20 @@ public class MainList extends Fragment implements Rmove{
         // Inflate the layout for this fragment
 
         View v=inflater.inflate(R.layout.fragment_main_list, container, false);
+        listFile = new File(getContext().getFilesDir(),"ListFile.txt");
+        if(listFile.exists()){
+            try {
+                Scanner sc = new Scanner(listFile);
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+        }else{
+            try {
+                listFile.createNewFile();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
         mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);
         return v;
     }
@@ -80,12 +96,25 @@ public class MainList extends Fragment implements Rmove{
             mListener.onFragmentInteraction(uri);
         }
     }
+
+    /**
+     * calls the getFood meathod
+     * reads a button press to get a food item and add to list
+     * @param view
+     */
     public void get(View view){
         mListener.getFood();
     }
+
+    /**
+     * adds in a food item and then checks for duplicates
+     * @param food
+     */
     public void addFood(FoodItem food){
-        mainLayout.addView(food.layout);
+        mainLayout.addView(food.layout);//new food item is added to last index of array list
+        //checks each index of arraylist for a matching item except the last spot
         for(int i=0; i<foods.size()-1;i++){
+            //if it finds a matching item it consolidates the two items
             if(foods.get(i).food.equalsIgnoreCase(food.food)){
                 foods.get(i).add(food.quantity);
                 food.remove();
@@ -93,6 +122,11 @@ public class MainList extends Fragment implements Rmove{
             }
         }
     }
+
+    /**
+     * removes a food item from the layout using the layouts .equals meathod
+     * @param food
+     */
     public void remove(FoodItem food){
         mainLayout.removeView(food.layout);
     }

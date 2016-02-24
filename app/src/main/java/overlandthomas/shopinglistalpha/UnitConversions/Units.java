@@ -34,6 +34,13 @@ public class Units {
     public static String getFamily(String unit){
         return "volume";
     }
+
+    /**
+     * converts unit to the target
+     * @param target
+     * @param con
+     * @return
+     */
     public static Unit convert(String target, Unit con){
         String fam = getFamily(target);
         if(!fam.equalsIgnoreCase(con.getFamily())){
@@ -49,6 +56,12 @@ public class Units {
             return new Unit(target,con.getQuantity()/conv,con.getFamily());
 
     }
+
+    /**
+     * converts unit to the cup unit type
+     * @param con
+     * @return
+     */
     public static Unit convertToBase(Unit con){
         if(con.getFamily().equalsIgnoreCase("volume")){
             double conv = volumeCon[getIndex(volumeUnits,con.getName())];
@@ -65,12 +78,27 @@ public class Units {
         }
         return -1;
     }
+
+    /**
+     * converts both units to cup adds values
+     * @param u1
+     * @param u2
+     * @return
+     */
     public static Unit add(Unit u1, Unit u2){
         Unit ub1 = convertToBase(u1);
         Unit ub2 = convertToBase(u2);
         Unit u3 = new Unit(ub1.getName(),ub1.getQuantity()+ub2.getQuantity(),ub1.getFamily());
         return u3;
     }
+
+    /**
+     * converts unit to the greatest unit it can be without a fraction
+     * finds the largest unit it can without the value being less than 0
+     * if value is less than 0 for all it converts to cups
+     * @param u
+     * @return
+     */
     public static Unit toGreatestUnit(Unit u){
         if(!u.getName().equalsIgnoreCase("Cup")){
             u=convertToBase(u);

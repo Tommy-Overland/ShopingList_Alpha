@@ -10,11 +10,23 @@
         android:id="@+id/ListOfFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <Button
-            android:text="+"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="get"/>
+            android:layout_height="wrap_content">
+            <Button
+                android:text="+"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="get"/>
+
+            <Button
+                android:text="save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 

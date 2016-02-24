@@ -40,6 +40,10 @@ public class AddFood extends Fragment {
     public EditText food;
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * fragment to create a UI for inputing foods to the list
+     * displayes a new UI and then communicates to main activity
+     */
     public AddFood() {
         // Required empty public constructor
     }
@@ -78,6 +82,11 @@ public class AddFood extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_add_food, container, false);
+        /*
+        creates 3 spinners and assigns refrence variables to them
+        assignes them values
+        creates a text box and assigns a refrence variable to it
+         */
         units = (Spinner) v.findViewById(R.id.unit);
         whole = (Spinner) v.findViewById(R.id.whole);
         fraction = (Spinner) v.findViewById(R.id.fraction);
@@ -93,14 +102,23 @@ public class AddFood extends Fragment {
         food = (EditText) v.findViewById(R.id.nameOfFood);
         return v;
     }
+
+    /**
+     * reads a button input from the xml
+     * parses inputed data to send it to the main activity
+     * @param v
+     */
     public void addItem(View v){
         String n = food.toString();
         String unit = units.getSelectedItem().toString();
         String num = whole.getSelectedItem().toString();
         String frac = fraction.getSelectedItem().toString();
+        //checks if user has inputed values to all fields
+        // stops meathod if user hasn't
         if(n==null||unit==null||num==null||frac==null){
             return;
         }
+        //takes the user inputed values from the spiners and parses them into a double
         Double val;
         Scanner s = new Scanner(num);
         val=s.nextDouble();
@@ -114,6 +132,12 @@ public class AddFood extends Fragment {
         Unit u = new Unit(unit,val, Units.getFamily(unit));
         mListener.add(u,n);
     }
+
+    /**
+     * reads a button input from the xml
+     * when pressed it ends this fragment and swaps it back to the list
+     * @param view
+     */
     public void terminate(View view){
         mListener.end();
     }

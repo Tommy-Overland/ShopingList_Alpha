@@ -75,9 +75,11 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
         input.setText("");
     }
     */
-    public void remove(View v){
-        //mainLayout.removeView(v);
-    }
+
+    /**
+     * replaces the currently displayed fragment with the main list fragment
+     *
+     */
     public void end(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -90,6 +92,12 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
         transaction.commit();
 
     }
+
+    /**
+     * adds a food item to the main list then calls end
+     * @param u
+     * @param n
+     */
     public void add(Unit u, String n){
         FoodItem food = new FoodItem(n,this,main.foods,u);
         main.addFood(food);
@@ -98,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     public void onFragmentInteraction(Uri uri){
 
     }
+
+    /**
+     * swaps fragment to a new add food inorder to allow for a new food item to be inputed
+     */
     public void getFood(){
         foodFrag=new AddFood();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
