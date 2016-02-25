@@ -66,4 +66,13 @@ public class FoodItem {
     public boolean equals(Object o){
         return o==this;
     }
+
+    @Override
+    public String toString(){
+        String rep = this.food;
+        rep += "&"+this.quantity.getName();
+        rep +="&"+this.quantity.getFamily();
+        rep+="&"+this.quantity.getQuantity();
+        return rep;
+    }
 }

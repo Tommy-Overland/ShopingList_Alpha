@@ -12,6 +12,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import overlandthomas.shopinglistalpha.UnitConversions.Unit;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -72,7 +74,7 @@ public class MainList extends Fragment implements Rmove{
         // Inflate the layout for this fragment
 
         View v=inflater.inflate(R.layout.fragment_main_list, container, false);
-        listFile = new File(getContext().getFilesDir(),"ListFile.txt");
+        listFile = new File(getContext().getFilesDir()+"/"+"ListFile.txt");
         if(listFile.exists()){
             try {
                 Scanner sc = new Scanner(listFile);
@@ -89,6 +91,19 @@ public class MainList extends Fragment implements Rmove{
         mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);
         return v;
     }
+    public void onPause(){
+        super.onPause();
+
+    }
+    public void onResume(){
+
+    }
+    public void onStop(){
+
+    }
+    public void onStart(){
+
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -97,6 +112,72 @@ public class MainList extends Fragment implements Rmove{
         }
     }
 
+    /**
+     * saves the list in the storage file
+     */
+    public void Save(){
+        PrintStream p;
+        //conviluted code that checks if the file exists makes a print stream if it doesn't it makes a new file and creates a new print steam
+        try {
+             p = new PrintStream(listFile);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+            try {
+                listFile.createNewFile();
+                try{
+                    p= new PrintStream(listFile);
+                }catch (FileNotFoundException why){
+                    why.printStackTrace();
+                    p=System.out;
+                }
+            }catch (IOException wtf){
+                wtf.printStackTrace();
+                p=System.out;
+            }
+        }
+        for(int i=0; i<foods.size();i++){
+            p.println(foods.get(i).toString());
+        }
+
+    }
+
+    /**
+     * opends the file tied to the scanner inputed
+     * @param file
+     */
+    public void open(Scanner file){
+        while (file.hasNextLine()){
+            Scanner line = new Scanner(file.nextLine());
+            line.useDelimiter("&");
+            String item;
+            String unit;
+            String fam;
+            double quant;
+            if(line.hasNext()){
+                item = line.next();
+            }else{
+                return;
+            }
+            if(line.hasNext()){
+                unit = line.next();
+            }else{
+                return;
+            }
+            if(line.hasNext()){
+                fam = line.next();
+            }else{
+                return;
+            }
+            if(line.hasNextDouble()){
+                quant = line.nextDouble();
+            }else{
+                return;
+            }
+            FoodItem food = new FoodItem(item,this.getContext(),foods,new Unit(unit,quant,fam));
+            addFood(food);
+        }
+
+    }
     /**
      * calls the getFood meathod
      * reads a button press to get a food item and add to list
