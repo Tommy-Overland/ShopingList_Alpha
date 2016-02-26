@@ -74,10 +74,34 @@ public class MainList extends Fragment implements Rmove{
         // Inflate the layout for this fragment
 
         View v=inflater.inflate(R.layout.fragment_main_list, container, false);
+
+        mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);
+        return v;
+    }
+    public void onPause(){
+        super.onPause();
+        Save();
+
+    }
+    public void onResume(){
+        super.onResume();
+
+    }
+
+    public void onStop(){
+        super.onStop();
+        for(int i=0; i<foods.size();i++){
+            mainLayout.removeView(foods.get(i).layout);
+        }
+        foods.clear();
+    }
+    public void onStart(){
+        super.onStart();
         listFile = new File(getContext().getFilesDir()+"/"+"ListFile.txt");
         if(listFile.exists()){
             try {
                 Scanner sc = new Scanner(listFile);
+                open(sc);
             }catch(FileNotFoundException e){
                 e.printStackTrace();
             }
@@ -88,21 +112,6 @@ public class MainList extends Fragment implements Rmove{
                 e.printStackTrace();
             }
         }
-        mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);
-        return v;
-    }
-    public void onPause(){
-        super.onPause();
-
-    }
-    public void onResume(){
-
-    }
-    public void onStop(){
-
-    }
-    public void onStart(){
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
