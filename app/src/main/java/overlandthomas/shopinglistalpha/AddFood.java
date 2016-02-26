@@ -75,6 +75,23 @@ public class AddFood extends Fragment {
         }
 
     }
+    public void onStart(){
+        super.onStart();
+
+    }
+    public void onPause(){
+        super.onPause();
+
+    }
+    public void onResume(){
+        super.onResume();
+
+    }
+    public void onStop(){
+        super.onStop();
+
+
+    }
 
 
     @Override
@@ -164,6 +181,7 @@ public class AddFood extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
