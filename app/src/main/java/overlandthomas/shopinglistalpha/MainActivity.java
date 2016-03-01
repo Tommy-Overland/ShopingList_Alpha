@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(findViewById(R.id.layout)!=null){
@@ -92,7 +93,10 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
         transaction.commit();
 
     }
-
+    public void get(View view){
+        Log.d("info", "get called");
+        main.get(view);
+    }
     /**
      * adds a food item to the main list then calls end
      * @param u
@@ -102,6 +106,34 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
         FoodItem food = new FoodItem(n,this,main.foods,u);
         main.addFood(food);
         end();
+    }
+    public void addItem(View view){
+        Log.d("info","Add Item Called");
+        foodFrag.addItem(view);
+    }
+    public void terminate(View view){
+        Log.d("info", "terminate called");
+        foodFrag.terminate(view);
+    }
+    public void onStart(){
+        super.onStart();
+        Log.d("info","Main on Start");
+    }
+    public void onPause(){
+        super.onPause();
+        Log.d("info","Main on Pause");
+
+    }
+    public void onResume(){
+        super.onResume();
+        Log.d("info","Main on Resume");
+
+    }
+    public void onStop(){
+        super.onStop();
+        Log.d("info","Main on Stop");
+
+
     }
     public void onFragmentInteraction(Uri uri){
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,7 @@ public class MainList extends Fragment implements Rmove{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        Log.d("info","List on create view called");
         View v=inflater.inflate(R.layout.fragment_main_list, container, false);
 
         mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);
@@ -80,16 +81,19 @@ public class MainList extends Fragment implements Rmove{
     }
     public void onPause(){
         super.onPause();
+        Log.d("info","List on Pause");
         Save();
 
     }
     public void onResume(){
         super.onResume();
+        Log.d("info", "List on resume");
 
     }
 
     public void onStop(){
         super.onStop();
+        Log.d("info", "List on stop");
         for(int i=0; i<foods.size();i++){
             mainLayout.removeView(foods.get(i).layout);
         }
@@ -97,6 +101,7 @@ public class MainList extends Fragment implements Rmove{
     }
     public void onStart(){
         super.onStart();
+        Log.d("info", "List on start");
         listFile = new File(getContext().getFilesDir()+"/"+"ListFile.txt");
         if(listFile.exists()){
             try {
@@ -125,6 +130,7 @@ public class MainList extends Fragment implements Rmove{
      * saves the list in the storage file
      */
     public void Save(){
+        Log.d("info","List save called");
         PrintStream p;
         //conviluted code that checks if the file exists makes a print stream if it doesn't it makes a new file and creates a new print steam
         try {
@@ -155,6 +161,7 @@ public class MainList extends Fragment implements Rmove{
      * @param file
      */
     public void open(Scanner file){
+        Log.d("info","List open called");
         while (file.hasNextLine()){
             Scanner line = new Scanner(file.nextLine());
             line.useDelimiter("&");

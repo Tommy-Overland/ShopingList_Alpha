@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,18 +78,21 @@ public class AddFood extends Fragment {
     }
     public void onStart(){
         super.onStart();
-
+        Log.d("info", "add food on Start");
     }
     public void onPause(){
         super.onPause();
+        Log.d("info", "add food on Pause");
 
     }
     public void onResume(){
         super.onResume();
+        Log.d("info", "add food on Resume");
 
     }
     public void onStop(){
         super.onStop();
+        Log.d("info", "add food on Stop");
 
 
     }
