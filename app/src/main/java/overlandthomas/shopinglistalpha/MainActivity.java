@@ -23,7 +23,7 @@ import overlandthomas.shopinglistalpha.UnitConversions.Unit;
 public class MainActivity extends AppCompatActivity implements AddFood.OnFragmentInteractionListener, MainList.OnFragmentInteractionListener{
     public MainList main;
     public AddFood foodFrag;
-   // public LinearLayout mainLayout = (LinearLayout) findViewById(R.id.layout);
+   //public LinearLayout mainLayout = (LinearLayout) findViewById(R.id.ListOfFood);
     //public EditText input = (EditText) findViewById(R.id.item);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
      *
      */
     public void end(){
+        Log.d("info","end called");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 // Replace whatever is in the fragment_container view with this fragment,
@@ -95,7 +96,9 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     }
     public void get(View view){
         Log.d("info", "get called");
-        main.get(view);
+        Unit u = new Unit("Cup",0,"volume");
+        add(u,"test item add");
+        //main.get(view);
     }
     /**
      * adds a food item to the main list then calls end
@@ -103,9 +106,11 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
      * @param n
      */
     public void add(Unit u, String n){
+        Log.d("info", "main add called");
         FoodItem food = new FoodItem(n,this,main.foods,u);
-        main.addFood(food);
-        end();
+        main.mainLayout.addView(food.layout);
+        //main.addFood(food);
+        //end();
     }
     public void addItem(View view){
         Log.d("info","Add Item Called");
@@ -116,22 +121,26 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
         foodFrag.terminate(view);
     }
     public void onStart(){
+
+        Log.d("info", "Main on Start");
         super.onStart();
-        Log.d("info","Main on Start");
     }
     public void onPause(){
-        super.onPause();
+
         Log.d("info","Main on Pause");
+        super.onPause();
 
     }
     public void onResume(){
-        super.onResume();
+
         Log.d("info","Main on Resume");
+        super.onResume();
 
     }
-    public void onStop(){
-        super.onStop();
+    public void onStop() {
         Log.d("info","Main on Stop");
+        super.onStop();
+
 
 
     }

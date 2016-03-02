@@ -1,6 +1,7 @@
 package overlandthomas.shopinglistalpha;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -27,29 +28,37 @@ public class FoodItem {
      * @param q the quantity of the food item needed
      */
     public FoodItem(String in,Context t,ArrayList<FoodItem> s,Unit q){
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT);
         quantity=q;
         store=s;
+        Log.d("info", "food item created");
         s.add(this);
         food=in;
         layout=new LinearLayout(t);//creates a layout to be used to display the item
+        layout.setOrientation(LinearLayout.HORIZONTAL);
         item=new TextView(t); //a text view to display the name and quantity
         String label = in+q.toString();
         item.append(label);
-        layout.addView(item);
+        layout.addView(item,0,params);
+
         compleate=new Button(t);  // a button to remove the item when it is obtained
-        compleate.append("remove item");
-        layout.addView(compleate);
+        compleate.setText("remove item");
+        layout.addView(compleate,1,params);
         compleate.setOnClickListener(new View.OnClickListener() {//code to add interactivity to button calls remove meathod
             public void onClick(View v) {
-
+                Log.d("info","button clicked");
                 remove();
             }
         });
 
         }
     public void remove(){// removes the item from the array list and calls the contexts remove function if it is a Rmove
+        Log.d("info","food item remove called");
         store.remove(this);
         if(layout.getContext() instanceof Rmove){
+            Log.d("info","food item rmove true");
             ((Rmove) layout.getContext()).remove(this);
         }
 

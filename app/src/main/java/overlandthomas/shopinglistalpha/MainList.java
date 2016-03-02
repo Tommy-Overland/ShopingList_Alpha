@@ -77,12 +77,19 @@ public class MainList extends Fragment implements Rmove{
         View v=inflater.inflate(R.layout.fragment_main_list, container, false);
 
         mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);
+        FoodItem test = new FoodItem("test",this.getContext(),this.foods,new Unit ("cup",0,"volume"));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        mainLayout.addView(test.layout,1,params);
+        //mainLayout.addView(test.item);
+
         return v;
     }
     public void onPause(){
         super.onPause();
-        Log.d("info","List on Pause");
-        Save();
+        Log.d("info", "List on Pause");
+        //Save();
 
     }
     public void onResume(){
@@ -94,14 +101,17 @@ public class MainList extends Fragment implements Rmove{
     public void onStop(){
         super.onStop();
         Log.d("info", "List on stop");
+        /*
         for(int i=0; i<foods.size();i++){
             mainLayout.removeView(foods.get(i).layout);
         }
         foods.clear();
+        */
     }
     public void onStart(){
         super.onStart();
         Log.d("info", "List on start");
+        /*
         listFile = new File(getContext().getFilesDir()+"/"+"ListFile.txt");
         if(listFile.exists()){
             try {
@@ -117,6 +127,7 @@ public class MainList extends Fragment implements Rmove{
                 e.printStackTrace();
             }
         }
+        */
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -150,6 +161,7 @@ public class MainList extends Fragment implements Rmove{
                 p=System.out;
             }
         }
+        Log.d("info","List save called in foods");
         for(int i=0; i<foods.size();i++){
             p.println(foods.get(i).toString());
         }
@@ -208,8 +220,10 @@ public class MainList extends Fragment implements Rmove{
      * @param food
      */
     public void addFood(FoodItem food){
+        Log.d("info","List add food called");
         mainLayout.addView(food.layout);//new food item is added to last index of array list
         //checks each index of arraylist for a matching item except the last spot
+        /*
         for(int i=0; i<foods.size()-1;i++){
             //if it finds a matching item it consolidates the two items
             if(foods.get(i).food.equalsIgnoreCase(food.food)){
@@ -218,6 +232,7 @@ public class MainList extends Fragment implements Rmove{
                 return;
             }
         }
+        */
     }
 
     /**
@@ -225,6 +240,7 @@ public class MainList extends Fragment implements Rmove{
      * @param food
      */
     public void remove(FoodItem food){
+        Log.d("info","List remove called");
         mainLayout.removeView(food.layout);
     }
 
