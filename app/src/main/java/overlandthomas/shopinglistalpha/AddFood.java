@@ -130,7 +130,7 @@ public class AddFood extends Fragment {
      * @param v
      */
     public void addItem(View v){
-        String n = food.toString();
+        String n = food.getText().toString();
         String unit = units.getSelectedItem().toString();
         String num = whole.getSelectedItem().toString();
         String frac = fraction.getSelectedItem().toString();

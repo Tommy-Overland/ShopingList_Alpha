@@ -77,19 +77,20 @@ public class MainList extends Fragment implements Rmove{
         View v=inflater.inflate(R.layout.fragment_main_list, container, false);
 
         mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);
+        /*
         FoodItem test = new FoodItem("test",this.getContext(),this.foods,new Unit ("cup",0,"volume"));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         mainLayout.addView(test.layout,1,params);
         //mainLayout.addView(test.item);
-
+        */
         return v;
     }
     public void onPause(){
         super.onPause();
         Log.d("info", "List on Pause");
-        //Save();
+        Save();
 
     }
     public void onResume(){
@@ -101,18 +102,22 @@ public class MainList extends Fragment implements Rmove{
     public void onStop(){
         super.onStop();
         Log.d("info", "List on stop");
-        /*
+
         for(int i=0; i<foods.size();i++){
             mainLayout.removeView(foods.get(i).layout);
         }
         foods.clear();
-        */
+
     }
     public void onStart(){
         super.onStart();
         Log.d("info", "List on start");
-        /*
-        listFile = new File(getContext().getFilesDir()+"/"+"ListFile.txt");
+
+        listFile = mListener.getFile();
+        if(listFile==null){
+            Log.d("info","null file in main");
+            return;
+        }
         if(listFile.exists()){
             try {
                 Scanner sc = new Scanner(listFile);
@@ -127,7 +132,7 @@ public class MainList extends Fragment implements Rmove{
                 e.printStackTrace();
             }
         }
-        */
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -175,7 +180,8 @@ public class MainList extends Fragment implements Rmove{
     public void open(Scanner file){
         Log.d("info","List open called");
         while (file.hasNextLine()){
-            Scanner line = new Scanner(file.nextLine());
+            String test = file.nextLine();
+            Scanner line = new Scanner(test);
             line.useDelimiter("&");
             String item;
             String unit;
@@ -221,7 +227,12 @@ public class MainList extends Fragment implements Rmove{
      */
     public void addFood(FoodItem food){
         Log.d("info","List add food called");
-        mainLayout.addView(food.layout);//new food item is added to last index of array list
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        mainLayout.addView(food.layout,1,params);
+        //mainLayout.addView(test.item);
+        //mainLayout.addView(food.layout);//new food item is added to last index of array list
         //checks each index of arraylist for a matching item except the last spot
         /*
         for(int i=0; i<foods.size()-1;i++){
@@ -276,5 +287,6 @@ public class MainList extends Fragment implements Rmove{
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
         void getFood();
+        File getFile();
     }
 }

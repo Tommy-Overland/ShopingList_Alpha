@@ -15,14 +15,17 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import overlandthomas.shopinglistalpha.UnitConversions.Unit;
 
-public class MainActivity extends AppCompatActivity implements AddFood.OnFragmentInteractionListener, MainList.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements AddFood.OnFragmentInteractionListener
+        ,Rmove,MainList.OnFragmentInteractionListener{
     public MainList main;
     public AddFood foodFrag;
+    public File store;
    //public LinearLayout mainLayout = (LinearLayout) findViewById(R.id.ListOfFood);
     //public EditText input = (EditText) findViewById(R.id.item);
     @Override
@@ -76,7 +79,9 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
         input.setText("");
     }
     */
-
+        public void remove(FoodItem food){
+            main.remove(food);
+        }
     /**
      * replaces the currently displayed fragment with the main list fragment
      *
@@ -96,9 +101,9 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     }
     public void get(View view){
         Log.d("info", "get called");
-        Unit u = new Unit("Cup",0,"volume");
-        add(u,"test item add");
-        //main.get(view);
+        //Unit u = new Unit("Cup",0,"volume");
+        //add(u,"test item add");
+        main.get(view);
     }
     /**
      * adds a food item to the main list then calls end
@@ -108,12 +113,27 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     public void add(Unit u, String n){
         Log.d("info", "main add called");
         FoodItem food = new FoodItem(n,this,main.foods,u);
-        main.mainLayout.addView(food.layout);
-        //main.addFood(food);
-        //end();
+        //main.mainLayout.addView(food.layout);
+        try{
+            Scanner read = new Scanner(this.getFile());
+            ArrayList<String> temp = new ArrayList<>();
+            while (read.hasNextLine()){
+                temp.add(read.nextLine());
+            }
+            PrintStream out = new PrintStream(this.getFile());
+            for(int i=0; i<temp.size();i++){
+                out.println(temp.get(i));
+            }
+            out.println(food.toString());
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        end();
+
+
     }
     public void addItem(View view){
-        Log.d("info","Add Item Called");
+        Log.d("info", "Add Item Called");
         foodFrag.addItem(view);
     }
     public void terminate(View view){
@@ -124,6 +144,14 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
 
         Log.d("info", "Main on Start");
         super.onStart();
+        store =new File(getFilesDir()+"/"+"ListFile.txt");
+        if(!store.exists()){
+            try{
+                store.createNewFile();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
     }
     public void onPause(){
 
@@ -146,6 +174,20 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     }
     public void onFragmentInteraction(Uri uri){
 
+    }
+    public File getFile(){
+        Log.d("info","Main get file ");
+        if(store==null){
+            store =new File(getFilesDir()+"/"+"ListFile1.txt");
+        }
+        if(!store.exists()){
+            try{
+                store.createNewFile();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+        return store;
     }
 
     /**

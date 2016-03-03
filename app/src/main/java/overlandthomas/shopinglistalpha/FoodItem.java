@@ -29,7 +29,7 @@ public class FoodItem {
      */
     public FoodItem(String in,Context t,ArrayList<FoodItem> s,Unit q){
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
         quantity=q;
         store=s;
@@ -78,7 +78,8 @@ public class FoodItem {
 
     @Override
     public String toString(){
-        String rep = this.food;
+        String rep = "";
+        rep+=this.food;
         rep += "&"+this.quantity.getName();
         rep +="&"+this.quantity.getFamily();
         rep+="&"+this.quantity.getQuantity();
