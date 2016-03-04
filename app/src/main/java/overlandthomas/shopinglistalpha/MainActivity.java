@@ -105,6 +105,16 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
         //add(u,"test item add");
         main.get(view);
     }
+    public void clear(View view){
+        Log.d("info","clear called");
+        try {
+            PrintStream p = new PrintStream(store);
+            p.println();
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+            Log.d("info","file failed to clear");
+        }
+    }
     /**
      * adds a food item to the main list then calls end
      * @param u
@@ -118,16 +128,20 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
             Scanner read = new Scanner(this.getFile());
             ArrayList<String> temp = new ArrayList<>();
             while (read.hasNextLine()){
-                temp.add(read.nextLine());
+                String t = read.nextLine();
+                Log.d("info","add to array "+t);
+                temp.add(t);
             }
             PrintStream out = new PrintStream(this.getFile());
             for(int i=0; i<temp.size();i++){
                 out.println(temp.get(i));
+                Log.d("info","main print to file "+temp.get(i));
             }
             out.println(food.toString());
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }
+        food.remove();
         end();
 
 

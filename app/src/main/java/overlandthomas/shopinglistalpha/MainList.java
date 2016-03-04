@@ -169,6 +169,7 @@ public class MainList extends Fragment implements Rmove{
         Log.d("info","List save called in foods");
         for(int i=0; i<foods.size();i++){
             p.println(foods.get(i).toString());
+            Log.d("info","list saved "+foods.get(i).toString()+"index "+i);
         }
 
     }
@@ -230,11 +231,11 @@ public class MainList extends Fragment implements Rmove{
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        mainLayout.addView(food.layout,1,params);
+        mainLayout.addView(food.layout,0,params);
         //mainLayout.addView(test.item);
         //mainLayout.addView(food.layout);//new food item is added to last index of array list
         //checks each index of arraylist for a matching item except the last spot
-        /*
+
         for(int i=0; i<foods.size()-1;i++){
             //if it finds a matching item it consolidates the two items
             if(foods.get(i).food.equalsIgnoreCase(food.food)){
@@ -243,7 +244,7 @@ public class MainList extends Fragment implements Rmove{
                 return;
             }
         }
-        */
+
     }
 
     /**

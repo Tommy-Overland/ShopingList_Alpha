@@ -7,7 +7,7 @@
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:orientation="vertical"
-        android:id="@+id/ListOfFood"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -21,13 +21,26 @@
                 android:onClick="get"/>
 
             <Button
-                android:text="save"
+                android:text="clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="clear"
                 />
 
         </LinearLayout>
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ListOfFood"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </FrameLayout>

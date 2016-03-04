@@ -34,6 +34,7 @@ public class FoodItem {
         quantity=q;
         store=s;
         Log.d("info", "food item created");
+        Log.d("info",in);
         s.add(this);
         food=in;
         layout=new LinearLayout(t);//creates a layout to be used to display the item
