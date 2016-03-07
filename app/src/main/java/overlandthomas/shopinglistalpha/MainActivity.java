@@ -1,5 +1,6 @@
 package overlandthomas.shopinglistalpha;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     public MainList main;
     public AddFood foodFrag;
     public File store;
+    public Intent intent = getIntent();
    //public LinearLayout mainLayout = (LinearLayout) findViewById(R.id.ListOfFood);
     //public EditText input = (EditText) findViewById(R.id.item);
     @Override
@@ -158,7 +160,9 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
 
         Log.d("info", "Main on Start");
         super.onStart();
-        store =new File(getFilesDir()+"/"+"ListFile.txt");
+
+        String path = intent.getStringExtra("File");
+        store =new File(path);
         if(!store.exists()){
             try{
                 store.createNewFile();
@@ -192,7 +196,8 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     public File getFile(){
         Log.d("info","Main get file ");
         if(store==null){
-            store =new File(getFilesDir()+"/"+"ListFile1.txt");
+            String path = intent.getStringExtra("File");
+            store =new File(path);
         }
         if(!store.exists()){
             try{
