@@ -11,13 +11,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".HomeScreen"
             android:label="@string/title_activity_home_screen"
@@ -31,6 +25,10 @@
         <activity
             android:name=".CreateNewList"
             android:label="@string/title_activity_create_new_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".OpenActivity"
+            android:label="@string/title_activity_open"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

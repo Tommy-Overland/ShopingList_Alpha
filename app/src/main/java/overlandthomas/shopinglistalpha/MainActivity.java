@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     public MainList main;
     public AddFood foodFrag;
     public File store;
-    public Intent intent = getIntent();
+    public Intent intent;
    //public LinearLayout mainLayout = (LinearLayout) findViewById(R.id.ListOfFood);
     //public EditText input = (EditText) findViewById(R.id.item);
     @Override
@@ -160,8 +160,11 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
 
         Log.d("info", "Main on Start");
         super.onStart();
-
-        String path = intent.getStringExtra("File");
+        if(this.intent==null){
+            Log.d("info","main intent is null");
+            intent = getIntent();
+        }
+        String path = intent.getStringExtra(HomeScreen.getFile);
         store =new File(path);
         if(!store.exists()){
             try{
@@ -195,8 +198,12 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
     }
     public File getFile(){
         Log.d("info","Main get file ");
+        if(intent==null){
+            Log.d("info","main intent is null in file");
+            intent=getIntent();
+        }
         if(store==null){
-            String path = intent.getStringExtra("File");
+            String path = intent.getStringExtra(HomeScreen.getFile);
             store =new File(path);
         }
         if(!store.exists()){

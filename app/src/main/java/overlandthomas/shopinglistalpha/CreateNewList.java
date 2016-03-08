@@ -59,6 +59,7 @@ public class CreateNewList extends AppCompatActivity {
         fil=removeWhiteSpace(fil);
         File item = new File(getFilesDir()+"/"+fil);
         if(item.exists()){
+            Log.d("info","file Exists");
             return;
         }else{
             try{
@@ -68,7 +69,7 @@ public class CreateNewList extends AppCompatActivity {
             }
         }
         Intent intent = getIntent();
-        String path = intent.getStringExtra("File");
+        String path = intent.getStringExtra(HomeScreen.getFile);
         File data = new File(path);//TODO replace with getting intent for the database
         Scanner read;
         ArrayList<String> fill = new ArrayList<>();
@@ -91,9 +92,10 @@ public class CreateNewList extends AppCompatActivity {
         for(int i=0; i<fill.size();i++){
             out.println(fill.get(i));
         }
-        out.println(item.toString());
+        out.print(item.toString());
+        out.println(" "+field.getText().toString());
        Intent output = new Intent(this,MainActivity.class);
-        output.putExtra("File",item.toString());
+        output.putExtra(HomeScreen.getFile,item.toString());
         startActivity(output);
 
     }
