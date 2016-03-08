@@ -1,5 +1,6 @@
 package overlandthomas.shopinglistalpha;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,9 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class OpenActivity extends AppCompatActivity {
 public File Stored;
@@ -32,6 +36,35 @@ public File Stored;
     public void onStart(){
         super.onStart();
         Log.d("info", "Open on Start");
+        Intent intent = getIntent();
+        Stored = new File(intent.getStringExtra(HomeScreen.getFile));
+        try{
+            if(!Stored.exists()){
+                Stored.createNewFile();
+            }
+            Scanner scan = new Scanner(Stored);
+            LinearLayout layout = (LinearLayout) findViewById(R.id.OpenList);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            while(scan.hasNextLine()){
+                DisplayButton b = new DisplayButton(this,scan.nextLine());
+                b.setOnClickListener(new View.OnClickListener(){
+                    public void onClick(View view){
+                        if(view instanceof DisplayButton){
+                            Open((DisplayButton)view);
+                        }
+                    }
+                });
+                layout.addView(b,1,params);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+    }
+    public void Open(DisplayButton b){
 
     }
     public void onStop(){
