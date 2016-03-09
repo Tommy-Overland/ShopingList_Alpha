@@ -56,6 +56,11 @@ public final static String getFile = "File";
         intent.putExtra(getFile,database.toString());
         startActivity(intent);
     }
+    public void Open(View view){
+        Intent intent = new Intent(this,OpenActivity.class);
+        intent.putExtra(getFile,database.toString());
+        startActivity(intent);
+    }
     public void create(View view){
         Log.d("info","create calls HomeScreen");
     }

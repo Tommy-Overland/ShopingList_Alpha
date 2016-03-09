@@ -96,23 +96,6 @@ public class MainList extends Fragment implements Rmove{
     public void onResume(){
         super.onResume();
         Log.d("info", "List on resume");
-
-    }
-
-    public void onStop(){
-        super.onStop();
-        Log.d("info", "List on stop");
-
-        for(int i=0; i<foods.size();i++){
-            mainLayout.removeView(foods.get(i).layout);
-        }
-        foods.clear();
-
-    }
-    public void onStart(){
-        super.onStart();
-        Log.d("info", "List on start");
-
         listFile = mListener.getFile();
         if(listFile==null){
             Log.d("info","null file in main");
@@ -132,6 +115,23 @@ public class MainList extends Fragment implements Rmove{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void onStop(){
+        super.onStop();
+        Log.d("info", "List on stop");
+
+        for(int i=0; i<foods.size();i++){
+            mainLayout.removeView(foods.get(i).layout);
+        }
+        foods.clear();
+
+    }
+    public void onStart(){
+        super.onStart();
+        Log.d("info", "List on start");
+
+
 
     }
 

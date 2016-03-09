@@ -107,15 +107,11 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
         //add(u,"test item add");
         main.get(view);
     }
-    public void clear(View view){
-        Log.d("info","clear called");
-        try {
-            PrintStream p = new PrintStream(store);
-            p.println();
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-            Log.d("info","file failed to clear");
-        }
+    public void Home(View view){
+        Log.d("info","Home called");
+        Intent Return = new Intent(this, HomeScreen.class);
+        startActivity(Return);
+
     }
     /**
      * adds a food item to the main list then calls end

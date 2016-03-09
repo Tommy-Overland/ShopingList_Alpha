@@ -36,6 +36,29 @@ public File Stored;
     public void onStart(){
         super.onStart();
         Log.d("info", "Open on Start");
+    }
+    public void Open(DisplayButton b){
+        File f = new File(b.getFilePath());
+            if(!f.exists()){
+                Log.d("info","file does not exist");
+                return;
+            }
+            Intent out = new Intent(this,MainActivity.class);
+            out.putExtra(HomeScreen.getFile,b.getFilePath());
+            startActivity(out);
+
+
+    }
+    public void onStop(){
+        super.onStop();
+    }
+    public void onPause(){
+        super.onPause();
+        LinearLayout layout = (LinearLayout) findViewById(R.id.OpenList);
+        layout.removeAllViews();
+    }
+    public void onResume(){
+        super.onResume();
         Intent intent = getIntent();
         Stored = new File(intent.getStringExtra(HomeScreen.getFile));
         try{
@@ -56,26 +79,11 @@ public File Stored;
                         }
                     }
                 });
-                layout.addView(b,1,params);
+                layout.addView(b,0,params);
             }
         }catch(IOException e){
             e.printStackTrace();
         }
-
-
-    }
-    public void Open(DisplayButton b){
-
-    }
-    public void onStop(){
-        super.onStop();
-    }
-    public void onPause(){
-        super.onPause();
-    }
-    public void onResume(){
-        super.onResume();
-
     }
 
 }
