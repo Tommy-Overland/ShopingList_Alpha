@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
             Log.d("info","main intent is null");
             intent = getIntent();
         }
-        String path = intent.getStringExtra(HomeScreen.getFile);
+        String path = intent.getStringExtra(Strings.getFile);
         store =new File(path);
         if(!store.exists()){
             try{
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements AddFood.OnFragmen
             intent=getIntent();
         }
         if(store==null){
-            String path = intent.getStringExtra(HomeScreen.getFile);
+            String path = intent.getStringExtra(Strings.getFile);
             store =new File(path);
         }
         if(!store.exists()){

@@ -20,6 +20,7 @@ public File Stored;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("info","open on create");
         setContentView(R.layout.activity_open);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,8 +44,16 @@ public File Stored;
                 Log.d("info","file does not exist");
                 return;
             }
+        Intent i = getIntent();
+        if(i.getStringExtra(Strings.getClass).equalsIgnoreCase("shoping")){
+            Intent out = new Intent();
+            out.putExtra(Strings.getFeedback,"file name returned");
+            setResult(RESULT_OK,out);
+            finish();
+            return;
+        }
             Intent out = new Intent(this,MainActivity.class);
-            out.putExtra(HomeScreen.getFile,b.getFilePath());
+            out.putExtra(Strings.getFile,b.getFilePath());
             startActivity(out);
 
 
@@ -59,13 +68,18 @@ public File Stored;
     }
     public void onResume(){
         super.onResume();
+        Log.d("info","open on resume");
         Intent intent = getIntent();
-        Stored = new File(intent.getStringExtra(HomeScreen.getFile));
+        Log.d("info","open on get intent");
+        Stored = new File(intent.getStringExtra(Strings.getFile));
+        Log.d("info","open on new file");
         try{
             if(!Stored.exists()){
                 Stored.createNewFile();
             }
+            Log.d("info","recived intent");
             Scanner scan = new Scanner(Stored);
+            Log.d("info","scanner created");
             LinearLayout layout = (LinearLayout) findViewById(R.id.OpenList);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,

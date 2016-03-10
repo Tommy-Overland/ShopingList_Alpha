@@ -53,12 +53,18 @@ public final static String getFile = "File";
     }
     public void CreateList(View view){
         Intent intent = new Intent(this,CreateNewList.class);
-        intent.putExtra(getFile,database.toString());
+        intent.putExtra(Strings.getFile,database.toString());
         startActivity(intent);
     }
     public void Open(View view){
         Intent intent = new Intent(this,OpenActivity.class);
-        intent.putExtra(getFile,database.toString());
+        intent.putExtra(Strings.getFile,database.toString());
+        intent.putExtra(Strings.getClass,"home");
+        startActivity(intent);
+    }
+    public void Shoping(View view){
+        Intent intent = new Intent(this,CreateList.class);
+        intent.putExtra(Strings.getFile,database.toString());
         startActivity(intent);
     }
     public void create(View view){

@@ -69,7 +69,7 @@ public class CreateNewList extends AppCompatActivity {
             }
         }
         Intent intent = getIntent();
-        String path = intent.getStringExtra(HomeScreen.getFile);
+        String path = intent.getStringExtra(Strings.getFile);
         File data = new File(path);//TODO replace with getting intent for the database
         Scanner read;
         ArrayList<String> fill = new ArrayList<>();
@@ -95,7 +95,7 @@ public class CreateNewList extends AppCompatActivity {
         out.print(item.toString());
         out.println(" "+field.getText().toString());
        Intent output = new Intent(this,MainActivity.class);
-        output.putExtra(HomeScreen.getFile,item.toString());
+        output.putExtra(Strings.getFile,item.toString());
         startActivity(output);
 
     }
