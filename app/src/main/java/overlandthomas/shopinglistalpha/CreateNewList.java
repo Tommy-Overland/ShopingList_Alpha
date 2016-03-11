@@ -59,6 +59,7 @@ public class CreateNewList extends AppCompatActivity {
         fil=removeWhiteSpace(fil);
         File item = new File(getFilesDir()+"/"+fil);
         if(item.exists()){
+            field.setText("file already exists try a new name");
             Log.d("info","file Exists");
             return;
         }else{

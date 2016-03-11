@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 public class OpenActivity extends AppCompatActivity {
 public File Stored;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,9 @@ public File Stored;
     }
     public void onStart(){
         super.onStart();
+
         Log.d("info", "Open on Start");
+
     }
     public void Open(DisplayButton b){
         File f = new File(b.getFilePath());
@@ -47,7 +50,7 @@ public File Stored;
         Intent i = getIntent();
         if(i.getStringExtra(Strings.getClass).equalsIgnoreCase("shoping")){
             Intent out = new Intent();
-            out.putExtra(Strings.getFeedback,"file name returned");
+            out.putExtra(Strings.getFeedback,b.getFilePath());
             setResult(RESULT_OK,out);
             finish();
             return;

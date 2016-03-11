@@ -55,9 +55,39 @@ public class FoodItem {
         });
 
         }
+    public FoodItem(String in,Context t,Unit q){
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        quantity=q;
+        store=null;
+        Log.d("info", "food item created");
+        Log.d("info",in);
+
+        food=in;
+        layout=new LinearLayout(t);//creates a layout to be used to display the item
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        item=new TextView(t); //a text view to display the name and quantity
+        String label = in+q.toString();
+        item.append(label);
+        layout.addView(item,0,params);
+
+        compleate=new Button(t);  // a button to remove the item when it is obtained
+        compleate.setText("remove item");
+        layout.addView(compleate,1,params);
+        compleate.setOnClickListener(new View.OnClickListener() {//code to add interactivity to button calls remove meathod
+            public void onClick(View v) {
+                Log.d("info","button clicked");
+                remove();
+            }
+        });
+
+    }
     public void remove(){// removes the item from the array list and calls the contexts remove function if it is a Rmove
         Log.d("info","food item remove called");
-        store.remove(this);
+        if(this.store!=null) {
+            store.remove(this);
+        }
         if(layout.getContext() instanceof Rmove){
             Log.d("info","food item rmove true");
             ((Rmove) layout.getContext()).remove(this);
