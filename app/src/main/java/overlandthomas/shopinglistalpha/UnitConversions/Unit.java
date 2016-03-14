@@ -44,7 +44,7 @@ public class Unit {
         String s;
         int whole = (int) quantity;
         s = "" + whole;
-        int end = (int) quantity * 100;
+        int end = (int) (quantity * 100);
         end = end % 100;
         if (end == 0) {
 

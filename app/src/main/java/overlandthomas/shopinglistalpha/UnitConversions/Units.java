@@ -107,7 +107,7 @@ public class Units {
         String unit = u.getName();
         for(int i=0; i<volumeUnits.length;i++){
             double v = u.getQuantity()/volumeCon[i];
-            if(v>0&&v<val){
+            if(v>1&&v<val){
                 val=v;
                 unit = volumeUnits[i];
             }
