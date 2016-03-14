@@ -104,6 +104,9 @@ public ArrayList<String> filePaths;
                 return;
             }
         FoodItem food = new FoodItem(item,this,foods,new Unit(unit,quant,fam));
+        addFood(food);
+    }
+    public void addFood(FoodItem food){
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -162,10 +165,13 @@ public ArrayList<String> filePaths;
         }
     }
     public void remove(FoodItem food){
-        //layout.removeView(food.layout);
+        layout.removeView(food.layout);
     }
     public void Clear(View view){
-
+        for (int i=0; i<foods.size();i++){
+            foods.get(i).remove();
+        }
+        filePaths.clear();
     }
 
 }

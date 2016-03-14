@@ -21,7 +21,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="new list"/>
+            android:hint="new list"
+            android:onClick="Clear"/>
     </LinearLayout>
     <ScrollView
         android:layout_weight="1"

@@ -8,6 +8,20 @@
     tools:context="overlandthomas.shopinglistalpha.OpenActivity"
     tools:showIn="@layout/activity_open"
     android:orientation="vertical"
-    android:id="@+id/OpenList">
+   >
+    <ScrollView
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/OpenList"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
