@@ -46,7 +46,7 @@ public class Unit {
         s = "" + whole;
         int end = (int) (quantity * 100);
         end = end % 100;
-        if (end == 0) {
+        if (end <= 5) {
 
         } else if (end <= 12) {
             s += " 1/8";
