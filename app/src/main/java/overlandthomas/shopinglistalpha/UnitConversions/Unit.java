@@ -42,10 +42,13 @@ public class Unit {
      */
     public String toString() {
         String s;
+        //truncates the value to the whole numbers then assihns to the string
         int whole = (int) quantity;
         s = "" + whole;
+        //gets the first two decimal places of the number
         int end = (int) (quantity * 100);
         end = end % 100;
+        //rounds the decimal value to a fraction and adds an appropriate string value to represent that fraction
         if (end <= 5) {
 
         } else if (end <= 12) {
@@ -63,10 +66,11 @@ public class Unit {
         } else if (end <= 87) {
             s += " 7/8";
         } else {
+            //rounds the decimal value up to zero reseting the string with a greater value
             whole++;
             s = "" + whole;
         }
-
+        //apendices the name of the unit
         s += " " + name;
         return s;
     }

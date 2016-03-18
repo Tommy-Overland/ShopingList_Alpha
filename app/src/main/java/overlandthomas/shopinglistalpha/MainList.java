@@ -28,9 +28,9 @@ public class MainList extends Fragment implements Rmove{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public ArrayList<FoodItem> foods = new ArrayList<>();
-    public LinearLayout mainLayout ;
-    public File listFile;
+    public ArrayList<FoodItem> foods = new ArrayList<>();//stores the food items for refrence
+    public LinearLayout mainLayout ; //the main layout UI elements are added to
+    public File listFile; //the file that the foods are saved to
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -76,7 +76,7 @@ public class MainList extends Fragment implements Rmove{
         Log.d("info","List on create view called");
         View v=inflater.inflate(R.layout.fragment_main_list, container, false);
 
-        mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);
+        mainLayout = (LinearLayout) v.findViewById(R.id.ListOfFood);//sets the value for the main layout
         /*
         FoodItem test = new FoodItem("test",this.getContext(),this.foods,new Unit ("cup",0,"volume"));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -90,12 +90,13 @@ public class MainList extends Fragment implements Rmove{
     public void onPause(){
         super.onPause();
         Log.d("info", "List on Pause");
-        Save();
+        Save();//saves the data
 
     }
     public void onResume(){
         super.onResume();
         Log.d("info", "List on resume");
+        //gets the file for the saving
         listFile = mListener.getFile();
         if(listFile==null){
             Log.d("info","null file in main");
@@ -104,7 +105,7 @@ public class MainList extends Fragment implements Rmove{
         if(listFile.exists()){
             try {
                 Scanner sc = new Scanner(listFile);
-                open(sc);
+                open(sc);//reads the file for any saved data
             }catch(FileNotFoundException e){
                 e.printStackTrace();
             }
@@ -232,8 +233,7 @@ public class MainList extends Fragment implements Rmove{
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         mainLayout.addView(food.layout,0,params);
-        //mainLayout.addView(test.item);
-        //mainLayout.addView(food.layout);//new food item is added to last index of array list
+        //new food item is added to last index of array list
         //checks each index of arraylist for a matching item except the last spot
 
         for(int i=0; i<foods.size()-1;i++){

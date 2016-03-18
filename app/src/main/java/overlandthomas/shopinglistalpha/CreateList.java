@@ -19,11 +19,14 @@ import java.util.Scanner;
 
 import overlandthomas.shopinglistalpha.UnitConversions.Unit;
 
+/**
+ * activity to display and compile the shoping list
+ */
 public class CreateList extends AppCompatActivity implements Rmove{
-public ArrayList<String> filePaths;
-    public ArrayList<FoodItem> foods;
-    public File savedFilePaths;
-    public LinearLayout layout;
+public ArrayList<String> filePaths;//an array list that dynamicly stores all the recipie file paths
+    public ArrayList<FoodItem> foods; // the arraylist that stores the foods in the list used to store refrences
+    public File savedFilePaths; // the file containing the file paths to recipise
+    public LinearLayout layout; // the main layout used to dynamicly change the UI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +34,17 @@ public ArrayList<String> filePaths;
         setContentView(R.layout.activity_create_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //initializes
         filePaths = new ArrayList<>();
         foods=new ArrayList<>();
         layout = (LinearLayout) findViewById(R.id.shopingList);
         savedFilePaths = new File(getFilesDir()+"/"+"SavedShopingPath");
+        //ensures that a file exists
         try{
             if(!savedFilePaths.exists()){
                 savedFilePaths.createNewFile();
             }
+            //loads the filePaths with the files from the storage
             Scanner read = new Scanner(savedFilePaths);
             while(read.hasNextLine()){
                 filePaths.add(read.nextLine());
@@ -54,7 +60,7 @@ public ArrayList<String> filePaths;
                         .setAction("Action", null).show();
             }
         });
-
+        //loads the UI with the saved files foods
         for(int i=0; i<filePaths.size();i++){
             File food = new File(filePaths.get(i));
             try{
@@ -75,14 +81,21 @@ public ArrayList<String> filePaths;
         Log.d("info", "Create List on Start");
 
     }
-    public void addline(String itemPath){
 
+    /**
+     * code to read in fooditems from the files and add them to the UI
+     * @param itemPath
+     */
+    public void addline(String itemPath){
+            //declare necisary variables and initialize the scanner
             Scanner line = new Scanner(itemPath);
             line.useDelimiter("&");
             String item;
             String unit;
             String fam;
             double quant;
+        //checks each section of the line for the proper components
+        //if component is not found line fails and nothing happens
             if(line.hasNext()){
                 item = line.next();
             }else{
@@ -103,22 +116,40 @@ public ArrayList<String> filePaths;
             }else{
                 return;
             }
+        //creates the food item object then adds it to ui
         FoodItem food = new FoodItem(item,this,foods,new Unit(unit,quant,fam));
         addFood(food);
     }
+
+    /**
+     * code to add food item to the UI
+     * @param food
+     */
     public void addFood(FoodItem food){
+        //establish UI layout paramiters then add view at index 0
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         layout.addView(food.layout, 0, params);
+        //code to consolidate redundant item entries by summing their quantities
+        for(int i=0; i<foods.size()-1;i++){
+            //if it finds a matching item it consolidates the two items
+            if(foods.get(i).food.equalsIgnoreCase(food.food)){
+                foods.get(i).add(food.quantity);
+                food.remove();
+                return;
+            }
+        }
     }
     public void onStop(){
         super.onStop();
         Log.d("info", "Create List on Stop");
+        //checks again for the existance of the file
         try{
          if(!savedFilePaths.exists()){
              savedFilePaths.createNewFile();
          }
+            //saves the file paths stored in the arraylist in the file
             PrintStream out = new PrintStream(savedFilePaths);
             for(int i=0; i<filePaths.size();i++){
                 out.println(filePaths.get(i));
@@ -136,6 +167,13 @@ public ArrayList<String> filePaths;
         super.onResume();
         Log.d("info", "Create List on Resume");
     }
+
+    /**
+     * calls the open activity to return a file path
+     * file path is then added to the list of file paths
+     * called on a button press in the UI
+     * @param view
+     */
     public void getFile(View view){
         Intent i = new Intent(this,OpenActivity.class);
         Intent source = getIntent();
@@ -144,6 +182,12 @@ public ArrayList<String> filePaths;
         startActivityForResult(i, 1);
     }
 
+    /**
+     * code to recieve the value from the called open Activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
@@ -151,6 +195,7 @@ public ArrayList<String> filePaths;
                //add code to add in file to the list
                 Log.d("info", "result recieved");
                 Log.d("info", data.getStringExtra(Strings.getFeedback));
+                //adds the filepath to array list then scans it adding its items to UI
                 filePaths.add(data.getStringExtra(Strings.getFeedback));
                 File added = new File(data.getStringExtra(Strings.getFeedback));
                 try{
@@ -164,9 +209,19 @@ public ArrayList<String> filePaths;
             }
         }
     }
+
+    /**
+     * used to remove food items from ui
+     * @param food
+     */
     public void remove(FoodItem food){
         layout.removeView(food.layout);
     }
+
+    /**
+     * resets the ui clearing all saved file paths and removing all added UI elements
+     * @param view
+     */
     public void Clear(View view){
         for (int i=0; i<foods.size();i++){
             foods.get(i).remove();
